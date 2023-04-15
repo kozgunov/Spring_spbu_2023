@@ -1,0 +1,26 @@
+#include<iostream>
+#include<fstream>
+
+using namespace std;
+
+struct Point {
+	int x = 0;
+	int y = 0;
+};
+
+int main()
+{
+	ofstream ofile("file.bin", ios::binary);
+	Point p1;
+	p1.x = 110; p1.y = 20;
+	ofile.write((char*)&p1, sizeof(Point));
+	ofile.close();
+
+	ifstream ifile("file.bin", ios::binary);
+	Point p2;
+	ifile.read((char*)&p2, sizeof(Point));
+	cout << p2.x << " " << p2.y;
+	ifile.close();
+
+	return EXIT_SUCCESS;
+}
