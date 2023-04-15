@@ -1,0 +1,90 @@
+#include<iostream>
+#include<cmath>
+//#include<ctime>
+#include<fstream>
+
+struct Shape { // base class 
+	int x;
+	int y;
+	Shape(int x = 0, int y = 0) : x(x), y(y) {} // constructor
+	Shape(const Shape& shape) : x(shape.x), y(shape.y) {} // copy constructor
+	~Shape() {} // destructor
+	void print() // operator of printing everything
+	{
+		printName();
+		printCoords();
+		printSquare();
+	}
+	void printCoords() // simply printing coordinates
+	{
+		std::cout << "(" << x << ", " << y << ")" << std::endl;
+	}
+	virtual void printName() = 0; // programm will work with undefite virtual operations and do nothing
+	virtual void printSquare() = 0;
+};
+
+struct Circle : public Shape { // driving class
+	int r;
+	Circle(int x = 0, int y = 0, int r = 0) : // x,y - posiition; r - radius
+		Shape(x, y), r(r) {}
+	void printName() override // override is necessary for application of virtual classes
+	{
+		std::cout << "CIRCLE ";
+	}
+	void printSquare() override
+	{
+		std::cout << " S = " << 3.1415926535 * r * r << std::endl;
+	}
+};
+
+struct Square : public Shape { // driving class
+	int a;
+	Square(int x = 0, int y = 0, int a = 0):
+		Shape(x, y), a(a) {}
+	void printName() override
+	{
+		std::cout << "SQUARE ";
+	}
+	void printSquare() override
+	{
+		std::cout << " S = " << a * a << std::endl;
+	}
+
+};
+
+void printShape(Shape& sh)
+{
+	sh.print();
+}
+
+int main()
+{
+	//srand(time(0));
+	Shape** shapes = new Shape * [3]; //dynamic array with 10 elems
+	for (int i = 0; i < 3; ++i)
+	{
+		int xx = rand() % 100;
+		int yy = rand() % 100;
+		int p = rand() % 100;
+		if (rand() % 2 == 0)
+		{
+			shapes[i] = new Circle(xx, yy, p);
+		}
+		else
+		{
+			shapes[i] = new Square(xx, yy, p);
+		}
+	}
+
+	for (int i = 0; i < 3; ++i)
+	{
+		shapes[i]->print();
+	}
+
+	for (int i = 0; i < 10; ++i) // clearing the memory
+	{
+		delete shapes[i];
+	}
+	delete[] shapes;
+	return EXIT_SUCCESS;
+}
