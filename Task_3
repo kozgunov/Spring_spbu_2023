@@ -1,0 +1,107 @@
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+enum AnimalType {
+	NONE, GROUND, WATER, AIR
+};
+
+class Animal { 
+public:
+	std::string type;
+	std::string name;
+	int age();
+	int abilities();
+	string changestate();
+	Animal(AnimalType type = NONE)
+	{
+
+	}
+
+};
+
+class AirAnimal : Animal { 
+private:
+	Animal animal;
+	Animal fly;
+
+public:
+	string changestate() {
+		bool flying_now;
+		char reply;
+		string is_flying;
+		cout << "is it flying now? - 1 or 0" <<endl;
+		cin >> reply;
+		if (cin.get() == 1)
+		{
+			is_flying = "flying now";
+			return fly.changestate();
+		}
+		else if (cin.get() == 0)
+		{
+			is_flying = "on the ground now";
+			return fly.changestate();
+		};
+	};
+	Animal flying() { return fly; };
+
+	int age() {
+		int age;
+		cin >> age;
+		return animal.age();
+	};
+	int abilities() {
+		int amount_abilities;
+		cout << "input the amount of abilities" << endl;
+		cin >> amount_abilities;
+		return animal.abilities();
+	};
+	Animal age_and_number_abilities() { return animal; };
+
+};
+
+class WaterAnimal : Animal {
+private:
+	Animal animal; 
+
+public:
+	void changeDepth();
+	int age() {
+		int age;
+		cin >> age;
+		return animal.age();
+	};
+	int abilities() {
+		int amount_abilities;
+		cout << "input the amount of abilities" << endl;
+		cin >> amount_abilities;
+		return animal.abilities();
+	};
+	Animal age_and_number_abilities() { return animal; };
+
+};
+
+class  GroundAnimal {
+private:
+	Animal animal;
+public:
+	int age() {
+		int age;
+		cin >> age;
+		return animal.age();
+	};
+	int abilities() {
+		int amount_abilities;
+		cout << "input the amount of abilities" << endl;
+		cin >> amount_abilities;
+		return animal.abilities();
+	};
+	Animal age_and_number_abilities() { return animal; };
+};
+
+
+int main()
+{
+	return EXIT_SUCCESS;
+}
