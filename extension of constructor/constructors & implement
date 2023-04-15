@@ -1,0 +1,48 @@
+#include<iostream>
+
+class Point {
+private: //initials 
+	int x;
+	int y;
+
+public:
+	Point(int x = 0, int y = 0) : x(x), y(y) {} // consturctor
+	Point(const Point& point) : x(point.x), y(point.y) {} // copy consturctor
+	~Point() {} // destructor
+	Point& operator=(const Point& point) // operator "="
+	{
+		this->x = point.x; //assignment 
+		this->y = point.y;
+		return *this;
+	}
+	Point operator-(const Point& point) // operator "-" - considering point as (x - x1, y - y1)
+	{
+		Point res(this->x - point.x, this->y - point.y);
+		return res;
+	}
+	Point operator*(const int& mult) // operator "*" with mult as factor
+	{
+		Point res(this->x * mult, this->y * mult); 
+		return res;
+	}
+	friend Point operator*(const int& mult, const Point& point) // operator of union of previous 2 ones
+	{
+		Point res(point.x * mult, point.y * mult);
+		return res;
+	}
+	friend std::ostream& operator<<(std::ostream& stream, const Point& point) // union of operator of output and operaor of *&-
+	{
+		stream << "(" << point.x << "; " << point.y << ")";
+		return stream;
+	}
+};
+
+int main()
+{
+	Point p1(5, 10); //exmaple 
+	Point p2 = p1;
+	Point p3;
+	p3 = p1 * 2 - 7 * p2;
+	std::cout << "p3 = " << p3 << std::endl; // (-25, -50)
+	return EXIT_SUCCESS;
+}
