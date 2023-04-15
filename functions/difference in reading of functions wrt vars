@@ -1,0 +1,22 @@
+#include<iostream> 
+
+int two_var_float(float a, float b)
+{
+	return (a > b ? a : b);
+}
+
+int two_vars_int(int a, int b)
+{
+	return (a > b ? a : b);
+}
+
+int three_var_int(int a, int b, int c)
+{
+	return two_vars_int(two_vars_int(a, b), c);
+}
+
+int main(int argc, char* argv[]) 
+{
+	std::cout << two_vars_int(1, 2) << std::endl; // function2
+	std::cout << three_var_int(1, 2, 3) << std::endl; // function3 = function2(function2)
+	std::cout << two_var_float(1.f, 2.f) << std::endl; // function1
