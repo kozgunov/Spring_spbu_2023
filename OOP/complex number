@@ -32,12 +32,12 @@ public:
 		complex res(this->x + plus.x, this->y + plus.y);
 		return res;
 	};
-	complex operator*(const complex& mult)
+	complex operator*(const complex& mult) // fix i*i = -1 
 	{
 		complex res(this->x * mult.x, this->y * mult.y);
 		return res;
-	}; 
-	complex operator/(const complex& divide)
+	};
+	complex operator/(const complex& divide) // check the formula 
 	{
 		complex res(this->x / divide.x, this->y / divide.y);
 		return res;
@@ -47,9 +47,9 @@ public:
 		complex res(this->x - Complex.x, this->y - Complex.y);
 		return res;
 	};
-	complex conj(const complex& Complex) // conjuction
+	complex conj(const complex& Complex) // conjuction // check by running 
 	{
-		complex res(this->x + Complex.x, -this->y - Complex.y);
+		complex res(this->x + Complex.x, - this->y - Complex.y);
 		return res;
 	};
 	/*
@@ -63,7 +63,7 @@ public:
 		return atan2(x, y);
 	};
 
-	void print_exponential_form()
+	void print_exponential_form() // write exp_form via the formula of polar decomposition 
 	{
 		std::cout << "e" << "^i" << arg() << std::endl; // e^i*angle
 	}
@@ -95,9 +95,6 @@ public:
 };
 
 
-
-
-
 void print(complex& sh)
 {
 	sh.print_normal_form();
@@ -107,22 +104,9 @@ void print(complex& sh)
 
 int main()
 {
-	
 	return EXIT_SUCCESS;
 }
 
 
-/*
-struct doublex : complex
-{
-	int double_x;
-	doublex(int x = 0) : x(x), x(x) {} // constructor
-	doublex(const complex& shape) : x(shape.x), x(shape.x) {} // copy constructor
-	~doublex() {} // destructor
-	doublex(int x) : double_x(x)
-	{
-		return double_x::double_x(x);
-	};
-
-}
-*/
+// 35, 40, 50, 66 strings fix 
+// write operator both for double and complex
