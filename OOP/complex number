@@ -1,112 +1,140 @@
+// we have to describe complex number and any basic operations via oop
+
 #include<iostream>
-//#include<cmath>
+#include<cmath>
 #include<fstream>
 
-struct complex { // base class 
+struct complex { // base class
 private:
 	double x; // real part
 	double y; // imaginary part
+
+	double abs() const
+	{
+		return sqrt(x * x + y * y);
+	};
+
+	double arg() const // angle 
+	{
+		return atan2(x, y);
+	};
+
+	double positive_Im() const
+	{
+		return (y > 0 ? y : -y);
+	};
+
+	complex exponential_form(double r, double angle) // write exp_form via polar decomposition 
+	{
+		return complex(r * cos(angle), r * sin(angle));
+	};
+
 public:
+
 	complex(int x = 0, int y = 0) : x(x), y(y) {} // constructor
 	complex(const complex& Complex) : x(Complex.x), y(Complex.y) {} // copy constructor
 	~complex() {} // destructor
-	void print() // operator of printing everything
+
+	void print(double x, double y) // operator of printing everything
 	{
-		print_normal_form();
-		print_exponential_form();
+		print_normal_form(x,  y);
+		print_exponential_form(x, y);
 	}
-	void print_normal_form() // simply printing coordinates
+	
+	void print_normal_form(double x, double y) // simply printing coordinates
 	{
-		std::cout << x << "+ i*" << y << std::endl;
+		std::cout << x << "+ i *" << y << std::endl;
 	}
 
+	void print_exponential_form(double x, double y) // write exp_form via the formula of polar decomposition 
+	{
+		exponential_form(x, y);
+	}
 
-	complex operator=(const complex& complex)
+	complex operator=(const complex& complex) // need only for division of complex by complex here
 	{
 		this->x = complex.x;
 		this->y = complex.y;
 		return *this;
 	};
-	complex operator+(const complex& plus)
+	
+	complex operator+(double real_number) // add integer number to complex one 
 	{
-		complex res(this->x + plus.x, this->y + plus.y);
-		return res;
+		return complex(x + real_number, y);
 	};
-	complex operator*(const complex& mult) // fix i*i = -1 
+	
+	complex operator*(double real_number) // fix i*i = -1  // multiple integer number to complex one 
 	{
-		complex res(this->x * mult.x, this->y * mult.y);
-		return res;
+		return complex(x * real_number, y * real_number);
 	};
-	complex operator/(const complex& divide) // check the formula 
+	
+	complex operator/(double real_number) // check the formula // divide both parts of complex number to integer 
 	{
-		complex res(this->x / divide.x, this->y / divide.y);
-		return res;
+		return complex(x / real_number, y / real_number);
 	};
-	complex operator-(const complex& Complex)
+	
+	complex operator-(double real_number)// subtract integer number from complex one  
 	{
-		complex res(this->x - Complex.x, this->y - Complex.y);
-		return res;
+		return complex(x - real_number, y);
 	};
-	complex conj(const complex& Complex) // conjuction // check by running 
+	
+	complex conj() // conjuction 
 	{
-		complex res(this->x + Complex.x, - this->y - Complex.y);
-		return res;
-	};
-	/*
-	complex operator|(const complex& Complex) // absolute value
-	{
-		complex res(this->x + this->y + Complex.x + Complex.y);
-		return res;
-	}; */
-	double arg()
-	{
-		return atan2(x, y);
+		return complex(x, -y);
 	};
 
-	void print_exponential_form() // write exp_form via the formula of polar decomposition 
-	{
-		std::cout << "e" << "^i" << arg() << std::endl; // e^i*angle
-	}
 
-	double abs()
+	friend complex operator+(double real_number, complex c) // add complex number to integer one
 	{
-		return x + y;
+		return complex(c.x + real_number, c.y);
 	};
-	friend complex operator+(const complex& double, const complex& plus)
+	
+	friend complex operator*(double real_number, complex c) // multiple complex number to integer one
 	{
-		complex res(double.x + complex.x, plus.y + complex.y);
-		return res;
+		return complex(c.x * real_number, c.y * real_number);
 	};
-	friend complex operator-(double, complex)
+
+	friend complex operator/(double real_number, complex c) // divide complex number to integer one
 	{
-		complex res(plus.x - complex.x, plus.y - complex.y);
-		return res;
+		return complex(real_number / c.x, real_number / c.y);
 	};
-	friend complex operator*(double, complex)
+
+	friend complex operator-(double real_number, complex c) // subtract complex number to integer one
 	{
-		complex res(plus.x * complex.x, plus.y * complex.y);
-		return res;
+		return complex(c.x - real_number, c.y);
 	};
-	friend complex operator/(double, complex)
+
+
+	complex operator+(complex c) // adding of 2 complex numbers
 	{
-		complex res(plus.x / complex.x, plus.y / complex.y);
-		return res;
+		return complex(x + c.x, y + c.y);
 	};
+	complex operator*(complex c) // multipling of 2 complex numbers
+	{
+		return exponential_form(abs() * c.abs(), arg() + c.arg());
+
+	};
+	complex operator/(complex c) // dividing of 2 complex numbers
+	{
+		return *this * c.conj() / c.abs(); // division is to be done by conjugate number
+	};
+	complex operator-(complex c) // subtracting of 2 complex numbers 
+	{
+		return complex(x - c.x, y - c.y);
+	};
+
+	friend std::ostream& operator<<(std::ostream& stream, const complex c) // printing
+	{
+		stream << c.x << " + i *" << c.y; // normal output
+		stream << c.abs() << " * e ^ (i * " << c.arg() << ")"; // exponent from 
+		return stream;
+	};
+
 };
-
-
-void print(complex& sh)
-{
-	sh.print_normal_form();
-	sh.print_exponential_form();
-}
 
 
 int main()
 {
+
 	return EXIT_SUCCESS;
 }
-
-
-// 35, 40, 50, 66 strings fix 
-// write operator both for double and complex
