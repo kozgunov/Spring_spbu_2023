@@ -1,1 +1,89 @@
-   
+#include<iostream>
+#include<string>
+
+using namespace std;
+
+enum AnimalType {
+	None, Dog, Cat, Bird, Fish
+};
+
+enum AnimalAbility {
+	Walk = 1,
+	Fly = 2,
+	Swim = 4,
+	Sound = 8
+};
+
+union AnimalInfo {
+	AnimalType type;
+	AnimalAbility ability;
+};
+
+struct Animal {
+public:
+
+	string name;
+	AnimalType type;
+	int abilities;
+	int age;
+
+
+	Animal(string name, AnimalType type, int age, int abilities) :
+		name(name), type(type), age(age) { abilities = Walk | Fly | Swim | Sound; } // constructor
+	Animal(const Animal& animal) :
+		name(animal.name), type(animal.type), age(animal.age), abilities(animal.abilities) {} // copy constructor
+	~Animal() {} //destructor
+
+	void print_info(AnimalType type, int abilities)
+	{
+		cout << type << " - type";
+		cout << abilities << " - abilities of " << type;
+	}
+
+	int elder(int age)
+	{
+		age += 1;
+	};
+
+};
+int main()
+{
+	int** array = new int * [100];
+	string type = "standart";
+	for (int i = 0; i <= 100; i++)
+	{
+		string name;
+		int age;
+		int abilities;
+		cin >> name;
+		cin >> age;
+		cin >> abilities;
+///////////////////////////////////////////////////////////////////// only idea
+		array[i] = new Animal(name, AnimalType type, age, abilities);
+	}
+	
+	while (sizeof(array) != 1)
+	{
+		int i = 0;
+		while (i < 100) 
+		{
+			if (array[i](age + abilities) > array[i + 1](age + abilities))
+			{
+				array[i + 1].delete;
+				elder(age[i]);
+			}
+			else if (array[i](age + abilities) < array[i + 1](age + abilities))
+			{
+				array[i].delete;
+				elder(age[i+1]);
+			}
+
+		}
+
+	}
+	Animal.print_info(array[0].type, array[0].abilities)
+
+	return EXIT_SUCCESS;
+}
+
+
