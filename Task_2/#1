@@ -41,10 +41,10 @@ public:
 		cout << abilities << " - abilities of " << type;
 	}
 
-	int elder(int age)
-	{
-		age += 1;
-	};
+	//int elder(int age)
+	//{
+	//	age += 1;
+	//};
 
 };
 int main()
@@ -75,6 +75,7 @@ int main()
 		};
 
 		map<string, unsigned> array_of_arrays;
+
 		if (type == "None")						// formulas of counting the power of animals
 		{
 			array_of_arrays[name] = age + abilities;
@@ -100,17 +101,15 @@ int main()
 			array_of_arrays[name] = 0; // exception
 		}
 	}
-	..............................................................................................
+	
 	while (sizeof(array_of_arrays) != 1) // fighting
 	{
-		int i = 0;
 		int n = 100;
-		for (const auto& [name, formula] : array_of_arrays)
+		for (int i = 0; i < n; i++)
 		{
-			if (elem.first > array_of_arrays[i + 1](age + abilities))
+			if (array_of_arrays[ i] > array_of_arrays[i + 1]) // problem with iteration of vocabulary and their comparison
 			{
-				array_of_arrays[i + 1].delete;
-				elder(age[i]);
+				array_of_arrays[i + 1].erase(i);
 			}
 			else if (array_of_arrays[i](age + abilities) < array_of_arrays[i + 1](age + abilities))
 			{
@@ -121,8 +120,8 @@ int main()
 		}
 		n = n / 2;
 	}
-	Animal.print_info(array_of_arrays[0].type, array_of_arrays[0].abilities)
-	
+	cout << array_of_arrays << " - winner of tournment & its skills at the end" << endl; // array with 1 name & its power
+
 	return EXIT_SUCCESS;
 }
 
