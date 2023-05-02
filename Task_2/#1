@@ -100,7 +100,7 @@ int main()
 			array_of_arrays[name] = 0; // exception
 		}
 	}
-	
+	..............................................................................................
 	while (sizeof(array_of_arrays) != 1) // fighting
 	{
 		int i = 0;
