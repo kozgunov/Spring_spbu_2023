@@ -73,33 +73,56 @@ int main()
 			cout << "write type of " << name << "'s animal: None, Dog, Cat, Bird, Fish:" << endl; // implies,that from the 2nd chance input is correct
 			cin >> type;
 		};
+
 		map<string, unsigned> array_of_arrays;
-		array_of_arrays[name] = age + abilities;
-		cout << name << endl;
+		if (type == "None")						// formulas of counting the power of animals
+		{
+			array_of_arrays[name] = age + abilities;
+		}
+		else if (type == "Dog") 
+		{
+			array_of_arrays[name] = 2*age + 4*abilities;
+		}
+		else if (type == "Cat") 
+		{
+			array_of_arrays[name] = 4*age + abilities;
+		}
+		else if (type == "Bird") 
+		{
+			array_of_arrays[name] = 3*age + 3*abilities;
+		}
+		else if (type == "Fish") 
+		{
+			array_of_arrays[name] = 5*abilities;
+		}
+		else
+		{
+			array_of_arrays[name] = 0; // exception
+		}
 	}
-	/*
-	while (sizeof(array) != 1) // fighting
+	
+	while (sizeof(array_of_arrays) != 1) // fighting
 	{
 		int i = 0;
 		int n = 100;
-		while (i < n) 
+		for (const auto& [name, formula] : array_of_arrays)
 		{
-			if (array[i](age + abilities) > array[i + 1](age + abilities))
+			if (elem.first > array_of_arrays[i + 1](age + abilities))
 			{
-				array[i + 1].delete;
+				array_of_arrays[i + 1].delete;
 				elder(age[i]);
 			}
-			else if (array[i](age + abilities) < array[i + 1](age + abilities))
+			else if (array_of_arrays[i](age + abilities) < array_of_arrays[i + 1](age + abilities))
 			{
-				array[i].delete;
+				array_of_arrays[i].delete;
 				elder(age[i+1]);
 			}
 
 		}
 		n = n / 2;
 	}
-	Animal.print_info(array[0].type, array[0].abilities)
-	*/
+	Animal.print_info(array_of_arrays[0].type, array_of_arrays[0].abilities)
+	
 	return EXIT_SUCCESS;
 }
 
