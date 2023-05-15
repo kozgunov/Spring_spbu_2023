@@ -1,1 +1,23 @@
- 
+#include <vector>
+#include <iostream>
+
+
+class Solution
+{
+    int removeElement(std::vector<int>& nums, int val) {
+        int k = 0; // number of elements not equal to val & our output
+        for (int i = 0; i < nums.size(); i++)
+        {
+            if (nums[i] != val)
+            {
+                nums[k] = nums[i]; // move element to front if not equal to val
+                k++;
+
+            }
+        }
+
+        return k;
+    }
+};
+
+//solved in leetcode
