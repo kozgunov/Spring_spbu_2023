@@ -1,1 +1,30 @@
- 
+ #include <vector>
+#include <iostream>
+
+class Solution {
+    int searchInsert(std::vector<int>& nums, int target) // array is sorted 
+    { 
+        int left = 0;
+        int right = nums.size() - 1;
+        while (left <= right) // O(n)
+        {
+            int current = left + (right - left) / 2;
+            if (nums[current] == target) // O(logn)
+            {  
+                return current; // output the index 
+            }
+            else if (nums[current] < target) // O(logn) 
+            { 
+                left = current + 1;
+            }
+            else // exception with complexity O(1) - we don't consider it for computing the average or the worst cases
+            { 
+                right = current - 1;
+            }
+        }
+        return left;
+    }
+};
+
+// solved here. I also wrote the time complexity with respect to the task - 0(n*log(n))
+// also checked in leetcode
