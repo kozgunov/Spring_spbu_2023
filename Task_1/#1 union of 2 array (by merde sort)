@@ -1,0 +1,49 @@
+
+
+class Solution
+{
+
+private:
+    struct ListNode 
+    {
+        int val;
+        ListNode* next;
+
+        ListNode() : val(0), next(nullptr) {} // constructor
+        ListNode(int x) : val(x), next(nullptr) {}
+        ListNode(int x, ListNode* next) : val(x), next(next) {}
+        ListNode(const ListNode& other) { val = other.val; next = other.next; } // copy structure of constructor
+        ~ListNode() { delete next; } // destructor
+    };
+
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) 
+    {
+        ListNode* ptr1 = list1; // nodes from the 1st list
+        ListNode* ptr2 = list2; // nodes from the 2nd list
+        ListNode* result = new ListNode(); // the sequential node
+        ListNode* temp = result;
+
+        while (ptr1 && ptr2) 
+        {
+            if (ptr1->val <= ptr2->val) // comparison
+            {
+                temp->next = ptr1;
+                ptr1 = ptr1->next;
+            }
+            else 
+            {
+                temp->next = ptr2;
+                ptr2 = ptr2->next;
+            }
+            temp = temp->next; //appending the node
+        }
+
+        if (ptr1 != nullptr) // insertion into the result
+            temp->next = ptr1;
+        else
+            temp->next = ptr2;
+
+        return result->next;
+    }
+};
