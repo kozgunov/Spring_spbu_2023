@@ -1,0 +1,103 @@
+// animal fighting
+
+#include <iostream>
+#include <string>
+#include <map>
+
+using namespace std;
+
+struct Animal // Animal struct  
+{ 	
+	string name;
+	int age;
+	int abilities;
+	string type;
+};
+
+void elder(int& age)
+{
+	age++;
+};
+
+
+int powerCalculationMap(int age, int abilities, string name)
+{
+	cout << "type of " << name << "'s animal: None, Dog, Cat, Bird, Fish:" << endl;
+	cin >> name;
+	cout << "age of " << age << " of animal as number" << endl;
+	cin >> age;
+	cout << "power of abilities of " << abilities << " of animal as number" << endl;
+	cin >> abilities;
+	string type = name;
+
+	int power;	// Power calculation using dictionary 
+	map<string, unsigned> array_of_arrays;
+	if (type == "None")						// formulas of counting the power of animals // also we can write it via function switch
+	{
+		array_of_arrays[name] = age + abilities;
+	}
+	else if (type == "Dog")
+	{
+		array_of_arrays[name] = 2 * age + 4 * abilities;
+	}
+	else if (type == "Cat")
+	{
+		array_of_arrays[name] = 4 * age + abilities;
+	}
+	else if (type == "Bird")
+	{
+		array_of_arrays[name] = 3 * age + 3 * abilities;
+	}
+	else if (type == "Fish")
+	{
+		array_of_arrays[name] = 5 * abilities;
+	}
+	else
+	{
+		array_of_arrays[name] = 0; // exception
+	}
+	return array_of_arrays[name];
+}
+
+int main() 
+{
+
+	map<string, unsigned> array_of_arrays;
+
+	for (int i = 0; i <= 100; i++) 
+	{
+		string name;
+		int age;
+		int abilities;
+		string type;
+
+		int power = powerCalculationMap(age, abilities, type);
+
+		array_of_arrays[name] = power;
+	}
+
+	int n = array_of_arrays.size();
+	while (n > 1) 
+	{
+ 
+		for (int i = 0; i < n / 2; i++)
+		{
+			int index1 = i * 2;
+			int index2 = index1 + 1;
+
+			if (array_of_arrays[index1].second > array_of_arrays[index2].second) 
+			{
+				array_of_arrays.erase(index2);
+			}
+			else 
+			{
+				array_of_arrays.erase(index1);
+			}
+		}
+		n = n / 2;
+
+	};
+	cout << array_of_arrays << " - winner of tournment & its skills at the end" << endl; // array with 1 name & its power
+
+	return EXIT_SUCCESS;
+}
